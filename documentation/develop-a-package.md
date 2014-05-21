@@ -34,10 +34,9 @@ Writing .spmignore...OK
 Writing .travis.yml...OK
 Writing HISTORY.md...OK
 Writing README.md...OK
-Writing nows/index.md...OK
+Writing examples/index.md...OK
 Writing index.js...OK
 Writing package.json...OK
-Writing src/now.js...OK
 Writing tests/now-spec.js...OK
 
 Initialized from template "init-template".
@@ -124,7 +123,7 @@ See tests result.
 $ spm test
 ```
 
-You can also open [http://127.0.0.1:8000/tests-runner.html](http://127.0.0.1:8000/tests-runner.html) in browser.
+You can also open [http://127.0.0.1:8000/tests/runner.html](http://127.0.0.1:8000/tests/runner.html) in browser.
 
 ## Publish
 
