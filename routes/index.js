@@ -159,6 +159,11 @@ exports.badge = function(req, res) {
   badge(res, name, version);
 };
 
+exports.bozhongBadge = function(req,res){
+  var name = req.params.name;
+  badge(res, name, ' private ', ' bozhong ', 'ff69b4');
+};
+
 var DocumentationOrder = {
   'getting-started': 1,
   'develop-a-package': 2,
