@@ -34,10 +34,9 @@ Writing .spmignore...OK
 Writing .travis.yml...OK
 Writing HISTORY.md...OK
 Writing README.md...OK
-Writing nows/index.md...OK
+Writing examples/index.md...OK
 Writing index.js...OK
 Writing package.json...OK
-Writing src/now.js...OK
 Writing tests/now-spec.js...OK
 
 Initialized from template "init-template".
@@ -103,10 +102,10 @@ Here you can also use four ` to wrap your code. It is a special rule that make y
 
 ## Add Test Case
 
-Edit test file at `tests/now-spec.js`. We introduce a default assert package [expect](http://spmjs.io/package/expect).
+Edit test file at `tests/now-spec.js`. We introduce a default assert solution [expect.js](http://spmjs.io/package/expect.js).
 
 ```
-var expect = require('expect');
+var expect = require('expect.js');
 var now = require('../index');
 
 describe('now', function() {
@@ -124,7 +123,7 @@ See tests result.
 $ spm test
 ```
 
-You can also open [http://127.0.0.1:8000/tests-runner.html](http://127.0.0.1:8000/tests-runner.html) in browser.
+You can also open [http://127.0.0.1:8000/tests/runner.html](http://127.0.0.1:8000/tests/runner.html) in browser.
 
 ## Publish
 

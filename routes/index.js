@@ -13,6 +13,7 @@ var client = new elastical.Client();
 var badge = require('../lib/badge');
 var anonymous = CONFIG.authorize.type === 'anonymous';
 var _ = require('lodash');
+var capitalize = require('capitalize');
 
 exports.index = function(req, res) {
   feed.stat(function(recentlyUpdates, publishCount) {
@@ -45,6 +46,7 @@ exports.index = function(req, res) {
         data.submitors = submitors.sort(function(a, b) {
           return b.count - a.count;
         });
+        data.submitors = data.submitors.slice(0, 10);
         res.render('index', data);
       });
     }
@@ -134,6 +136,7 @@ exports.search = function(req, res, next) {
   client.search({
     query: query,
     index: 'spmjs',
+    size: 100,
     type: 'package',
   }, function(err, results) {
     results = results || { hits: [] };
@@ -144,6 +147,12 @@ exports.search = function(req, res, next) {
       GA: CONFIG.website.GA,
       query: query,
       result: results.hits.map(function(item) {
+        var p = new Project({
+          name: item._source.name
+        });
+        if (p && p.packages) {
+          item._source.version = p.getLatestVersion();
+        }
         return item._source;
       })
     });
@@ -192,7 +201,7 @@ exports.documentation = function(req, res, next) {
   });
 
   res.render('documentation', {
-    title: title.replace(/-/g, ' ') + '- spm documentation',
+    title: capitalize.words(title.replace(/-/g, ' ')) + '- spm documentation',
     user: req.session.user,
     anonymous: anonymous,
     nav: nav,
