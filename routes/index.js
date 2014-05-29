@@ -2,8 +2,8 @@ var Project = require('../models/project');
 var Package = require('../models/package');
 var account = require('../models/account');
 var feed = require('../lib/feed');
+var download = require('../lib/download');
 var dependent = require('../lib/dependent');
-var marked = require('marked');
 var moment = require('moment');
 var fs = require('fs');
 var path = require('path');
@@ -15,41 +15,60 @@ var anonymous = CONFIG.authorize.type === 'anonymous';
 var _ = require('lodash');
 var capitalize = require('capitalize');
 
+var marked = require('marked');
+var renderer = new marked.Renderer();
+renderer.heading = function(text, level) {
+  var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+  return '<h' + level + ' id="' + escapedText + '">' + text + '<a name="' + escapedText +
+         '" class="anchor" href="#' + escapedText +
+         '"><span class="header-link">⚓︎</span></a></h' + level + '>';
+};
+
+// Synchronous highlighting with highlight.js
+marked.setOptions({
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value;
+  }
+});
+
 exports.index = function(req, res) {
-  feed.stat(function(recentlyUpdates, publishCount) {
-    recentlyUpdates.forEach(function(item) {
-      item.fromNow = moment(item.time).fromNow();
-    });
-    var data = {
-      title: CONFIG.website.title,
-      count: Project.getAll().length,
-      user: req.session.user,
-      anonymous: anonymous,
-      GA: CONFIG.website.GA,
-      recentlyUpdates: recentlyUpdates,
-      publishCount: publishCount,
-      mostDependents: dependent.getSortedDependents()
-    };
-    if (anonymous) {
-      res.render('index', data);
-    } else {
-      account.getAll(function(users) {
-        var submitors = [];
-        users.forEach(function(u) {
-          if (u.count && u.count > 0) {
-            submitors.push({
-              login: u.login,
-              count: u.count
-            });
-          }
-        });
-        data.submitors = submitors.sort(function(a, b) {
-          return b.count - a.count;
-        });
-        data.submitors = data.submitors.slice(0, 10);
-        res.render('index', data);
+  download.todayCount(function(todayCount) {
+    feed.stat(function(recentlyUpdates, publishCount) {
+      recentlyUpdates.forEach(function(item) {
+        item.fromNow = moment(item.time).fromNow();
       });
-    }
+      var data = {
+        title: CONFIG.website.title,
+        count: Project.getAll().length,
+        user: req.session.user,
+        anonymous: anonymous,
+        GA: CONFIG.website.GA,
+        recentlyUpdates: recentlyUpdates,
+        publishCount: publishCount,
+        todayCount: todayCount,
+        mostDependents: dependent.getSortedDependents()
+      };
+      if (anonymous) {
+        res.render('index', data);
+      } else {
+        account.getAll(function(users) {
+          var submitors = [];
+          users.forEach(function(u) {
+            if (u.count && u.count > 0) {
+              submitors.push({
+                login: u.login,
+                count: u.count
+              });
+            }
+          });
+          data.submitors = submitors.sort(function(a, b) {
+            return b.count - a.count;
+          });
+          data.submitors = data.submitors.slice(0, 10);
+          res.render('index', data);
+        });
+      }
+    });
   });
 };
 
@@ -184,7 +203,9 @@ var DocumentationOrder = {
 exports.documentation = function(req, res, next) {
   var title = req.params.title || 'getting-started';
   var content = (fs.readFileSync(path.join('documentation', title + '.md')) || '').toString();
-  content = marked(content);
+  content = marked(content, {
+    renderer: renderer
+  });
 
   var nav = fs.readdirSync('documentation');
   nav = nav.map(function(item, i) {
