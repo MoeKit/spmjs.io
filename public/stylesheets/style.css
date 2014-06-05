@@ -2,14 +2,14 @@
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+  src: local('Open Sans'), local('OpenSans'), url(http://fontscontent.useso.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
 }
 
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/k3k702ZOKiLJc3WVjuplzKRDOzjiPcYnFooOUGCOsRk.woff) format('woff');
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://fontscontent.useso.com/static/fonts/opensans/v8/k3k702ZOKiLJc3WVjuplzKRDOzjiPcYnFooOUGCOsRk.woff) format('woff');
 }
 
 @font-face {
@@ -99,7 +99,6 @@ input[type=text] {
   border-radius: 3px;
   border: 1px solid #ccc;
   padding: 9px 12px;
-  vertical-align: middle;
 }
 
 input[type=text]:focus {
@@ -353,6 +352,7 @@ footer a {
 .profile {
   padding-bottom: 20px;
   border-bottom: 1px solid #ddd;
+  min-height: 200px;
 }
 
 .profile label {
