@@ -6,7 +6,7 @@ You can follow the steps to develop a package using spm (should install spm@3.x 
 
 ```
 $ spm -V
-3.0.0
+3.0.x
 ```
 
 Make sure that spm@3.x is installed.
@@ -21,12 +21,9 @@ $ spm init
 ```
 Please answer the following:
 [?] Package name (now)
-[?] author afc163
 [?] Version (1.0.0)
-[?] Description (The best project ever.)
+[?] Description
 [?] Project git repository (git://github.com/afc163/now.git)
-[?] Project homepage (https://github.com/afc163/now)
-[?] Licenses (MIT)
 [?] Do you need to make any changes to the above before continuing? (y/N)
 
 Writing .gitignore...OK
@@ -62,7 +59,7 @@ $ spm install moment --save
 
 ## Code and Debug
 
-Edit `src/now.js` as follow, just like nodejs.
+Edit `index.js` as follow, just like nodejs.
 
 ```javascript
 var moment = require('moment');
@@ -96,7 +93,7 @@ $ spm doc watch
 
 Open [http://127.0.0.1:8000/examples/](http://127.0.0.1:8000/examples/) in browser to see the result.
 
-Except using three ` in Markdown file, you can also use four ` to wrap your code.
+Except using three &#96; in Markdown file, you can also use four &#96; to wrap your code.
 
 It is a special rule that make your code highlighted and would be inserted to document page as a script block so they can be excuted at the same time. That is very useful for debugging your demo and writing a beautiful documentation both.
 
