@@ -69,6 +69,7 @@ app.get('/package/:name', routes.project);
 app.get('/package/:name/:version', routes.package);
 app.get('/badge/:name', routes.badge);
 app.get('/privateBadge/:name', routes.bozhongBadge);
+app.get('/support/:name', routes.bsSupport);
 app.get('/documentation', routes.documentation);
 app.get('/documentation/:title', routes.documentation);
 
