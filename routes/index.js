@@ -266,12 +266,17 @@ exports.badge = function(req, res) {
     name: name
   });
   var version = p.getLatestVersion();
-  badge(res, name, version);
+  badge(res, ' MoeKit ',' '+ version + ' ');
 };
 
 exports.bozhongBadge = function(req,res){
   var name = req.params.name;
-  badge(res, name, ' private ', ' bozhong ', 'ff69b4');
+  badge(res, name, ' private ', 'ff69b4');
+};
+
+exports.bsSupport = function(req,res){
+  var bs = req.params.name;
+  badge(res, ' support ',' '+ bs + ' ', 'ff69b4');
 };
 
 var DocumentationOrder = {
