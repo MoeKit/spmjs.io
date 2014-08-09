@@ -1,6 +1,9 @@
 <% include header %>
 <div class="markdown">
-  <h1 class="package-name"><a href="/package/<%= package.name %>/"><%= package.name %></a></h1>
+  <h1 class="package-name">
+    <a href="/package/<%= package.name %>/"><%= package.name %></a>
+    <span class="package-version">@<%= package.version %></span>
+  </h1>
   <hr>
   <p><%= package.description || "No description" %></p>
   <pre>spm install <%= package.name %>@<%= package.version %></pre>
@@ -10,18 +13,6 @@
       <th width="20%">Updated</th>
       <td width="80%" title="<%= package.updated_at %>"><%= package.fromNow %></td>
     </tr>
-    <% if (package.publisher) { %>
-    <tr>
-      <th>Publisher</th>
-      <td>
-        <% if (anonymous) { %>
-          <%= package.publisher %>
-        <% } else { %>
-          <a href="/account/<%= package.publisher %>"><%= package.publisher %></a>
-        <% } %>
-      </td>
-    </tr>
-    <% } %>
     <% if (package.homepage) { %>
     <tr>
       <th>Homepage</th>
@@ -39,18 +30,7 @@
       <th>Dependencies</th>
       <td>
         <% package.dependencies.forEach(function(d, i) { %>
-          <% d = d.split('@'); %>
-          <a href="/package/<%= d[0] %>"><%= d[0] %></a>@<%= d[1] %><% if(i!==package.dependencies.length-1){ %>,<% } %>
-        <% }) %>
-      </td>
-    </tr>
-    <% } %>
-    <% if (package.dependents && package.dependents.length > 0) { %>
-    <tr>
-      <th>Dependents</th>
-      <td>
-        <% package.dependents.forEach(function(d, i) { %>
-          <a href="/package/<%= d %>"><%= d %></a><% if(i!==package.dependents.length-1){ %>,<% } %>
+          <a href="/package/<%= d.replace('@', '/') %>"><%= d %></a><% if(i!==package.dependencies.length-1){ %>,<% } %>
         <% }) %>
       </td>
     </tr>
@@ -59,6 +39,26 @@
     <tr>
       <th>Main</th>
       <td><%= package.spm.main %></td>
+    </tr>
+    <% } %>
+    <% if (package.filename) { %>
+    <tr>
+      <th>Tarfile</th>
+      <td>
+        <a href="/repository/<%= package.name %>/<%= package.version %>/<%= package.filename %>"><%= package.filename %></a>
+      </td>
+    </tr>
+    <% } %>
+    <% if (package.publisher) { %>
+    <tr>
+      <th>Publisher</th>
+      <td>
+        <% if (anonymous) { %>
+          <%= package.publisher %>
+        <% } else { %>
+          <a href="/account/<%= package.publisher %>"><%= package.publisher %></a>
+        <% } %>
+      </td>
     </tr>
     <% } %>
   </table>

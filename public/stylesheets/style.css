@@ -487,7 +487,17 @@ img.badge {
 
 .all-packages li {
   display: inline;
-  margin-right: 6px;
+}
+
+.all-packages a {
+  background: none repeat scroll 0 0 #fafafa;
+  border-radius: 2px;
+  box-shadow: 1px 2px 0 #f1f1f1;
+  display: inline-block;
+  margin-bottom: 8px;
+  margin-right: 4px;
+  min-width: 153px;
+  padding: 1px 8px;
 }
 
 .page-404 img {
@@ -527,6 +537,11 @@ img.badge {
 .markdown h1.package-name {
   font-size: 2.4em;
   line-height: 1.2;
+}
+
+.markdown h1.package-name .package-version {
+  font-size: 22px;
+  color: #888;
 }
 
 .markdown .anchor {
