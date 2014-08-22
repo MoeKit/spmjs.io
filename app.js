@@ -8,7 +8,7 @@ var http = require('http');
 var path = require('path');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
-var favicon = require('static-favicon');
+var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -68,6 +68,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/search', routes.search);
+app.get('/suggest', routes.suggest);
 app.get('/packages', routes.all);
 app.get('/package/:name', routes.project);
 app.get('/package/:name/:version', routes.package);
