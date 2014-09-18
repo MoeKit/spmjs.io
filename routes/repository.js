@@ -6,7 +6,7 @@ var path = require('path');
 var tempfile = require('tempfile');
 var tar = require('tarball-extract');
 var hook = require('../lib/hook');
-var feed = require('../lib/feed');
+var history = require('../lib/history');
 var elastical = require('elastical');
 var client = new elastical.Client();
 var account = require('../models/account');
@@ -27,7 +27,7 @@ exports.since = function(req, res, next) {
   if (!updateAfter) {
     return abortify(res, { code: 404 });
   }
-  feed.updateAfter(updateAfter, function(data) {
+  history.updateAfter(updateAfter, function(data) {
     res.set('Content-Type', 'application/javascript');
     res.send(200, data);
   });
@@ -301,6 +301,7 @@ exports.search = function(req, res, next) {
     query: query,
     index: 'spmjs',
     type: 'package',
+    size: 100,
   }, function(err, results) {
     var data = [];
     results = results || { hits: [] };
@@ -310,18 +311,27 @@ exports.search = function(req, res, next) {
       });
       data.push({
         name: p.name,
+        version: p.version,
         description: p.description,
         keywords: p.keywords,
         homepage: p.homepage,
-        repository: p.repository && p.repository.url
+        repository: p.repository && p.repository.url,
+        created_at: p.created_at,
       });
     });
-    res.send(200, {
+
+    data = {
       data: {
         total: data.length,
         results: data
       }
-    });
+    };
+    if ('define' in req.query) {
+      res.set('Content-Type', 'application/javascript');
+      data = JSON.stringify(data, null, 2);
+      data = 'define(' + data + ');';
+    }
+    res.send(200, data);
   });
 };
 
