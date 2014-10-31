@@ -121,6 +121,7 @@ app.get('/docs/*', express.static(path.join(CONFIG.wwwroot)));
 // 404
 app.get('*', function(req, res) {
   res.status(404).render('404.ejs', {
+    siteName: CONFIG.website.title,
     title: 'No Found - ' + CONFIG.website.title,
     spmjsioVersion: spmjsioVersion,
     gitRev: gitRev,

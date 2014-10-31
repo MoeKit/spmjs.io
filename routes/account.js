@@ -20,6 +20,7 @@ exports.index = function(req, res) {
   } else {
     var profile = req.session.user;
     res.render('account', {
+      siteName: CONFIG.website.title,
       title: 'My account - ' + CONFIG.website.title,
       spmjsioVersion: spmjsioVersion,
       gitRev: gitRev,
@@ -41,6 +42,7 @@ exports.user = function(req, res, next) {
       profile.authkey = null;
       var packages = account.getPackages(profile.id);
       res.render('account', {
+        siteName: CONFIG.website.title,
         title: user.login + ' - ' + CONFIG.website.title,
         spmjsioVersion: spmjsioVersion,
         gitRev: gitRev,
