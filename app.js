@@ -106,6 +106,7 @@ app.get('/docs/:name/:version/*', docs);
 // 404
 app.get('*', function(req, res) {
   res.status(404).render('404.ejs', {
+    siteName: CONFIG.website.title,
     title: 'No Found - ' + CONFIG.website.title,
     spmjsioVersion: spmjsioVersion,
     anonymous: CONFIG.authorize.type === 'anonymous',

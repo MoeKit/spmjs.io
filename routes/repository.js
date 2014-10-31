@@ -365,6 +365,7 @@ function abortify(res, options) {
   };
   message = options.message || msgs[code];
   res.send(code, {
+    siteName: CONFIG.website.title,
     statusCode: code,
     status: status,
     message: message
