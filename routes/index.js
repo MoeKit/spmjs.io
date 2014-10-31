@@ -56,6 +56,7 @@ exports.index = function(req, res) {
   });
 
   var data = {
+    siteName: CONFIG.website.title,
     title: CONFIG.website.title,
     spmjsioVersion: spmjsioVersion,
     gitRev: gitRev,
@@ -84,7 +85,8 @@ exports.index = function(req, res) {
     });
     data.submitors = data.submitors.slice(0, 10);
   }
-  res.render('index', data);
+    res.render('index', data);
+  });
 };
 
 exports.project = function(req, res, next) {
@@ -127,6 +129,7 @@ exports.project = function(req, res, next) {
       }
     }
     res.render('project', {
+      siteName: CONFIG.website.title,
       title: p.name + ' - '+ CONFIG.website.title,
       spmjsioVersion: spmjsioVersion,
       gitRev: gitRev,
@@ -169,6 +172,7 @@ exports.package = function(req, res, next) {
       }
     }
     res.render('package', {
+      siteName: CONFIG.website.title,
       title: p.name + '@' + p.version + ' - '+ CONFIG.website.title,
       spmjsioVersion: spmjsioVersion,
       gitRev: gitRev,
@@ -184,6 +188,7 @@ exports.package = function(req, res, next) {
 
 exports.all = function(req, res) {
   res.render('packages', {
+    siteName: CONFIG.website.title,
     title: 'All Packages - ' + CONFIG.website.title,
     spmjsioVersion: spmjsioVersion,
     gitRev: gitRev,
@@ -214,6 +219,7 @@ exports.search = function(req, res, next) {
   }, function(err, results) {
     results = results || { hits: [] };
     res.render('search', {
+      siteName: CONFIG.website.title,
       title: 'Search Result - ' + CONFIG.website.title,
       spmjsioVersion: spmjsioVersion,
       gitRev: gitRev,
@@ -308,6 +314,7 @@ exports.documentation = function(req, res, next) {
   });
 
   res.render('documentation', {
+    siteName: CONFIG.website.title,
     title: capitalize.words(title.replace(/-/g, ' ')) + '- spm documentation',
     spmjsioVersion: spmjsioVersion,
     gitRev: gitRev,
