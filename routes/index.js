@@ -71,6 +71,7 @@ exports.index = function(req, res) {
       item.fromNow = moment(item.time).fromNow();
     });
     var data = {
+      siteName: CONFIG.website.title,
       title: CONFIG.website.title,
       spmjsioVersion: spmjsioVersion,
       count: Project.getAll().length,
@@ -136,6 +137,7 @@ exports.project = function(req, res, next) {
       }
     }
     res.render('project', {
+      siteName: CONFIG.website.title,
       title: p.name + ' - '+ CONFIG.website.title,
       spmjsioVersion: spmjsioVersion,
       user: req.session.user,
@@ -173,6 +175,7 @@ exports.package = function(req, res, next) {
       }
     }
     res.render('package', {
+      siteName: CONFIG.website.title,
       title: p.name + '@' + p.version + ' - '+ CONFIG.website.title,
       spmjsioVersion: spmjsioVersion,
       user: req.session.user,
@@ -187,6 +190,7 @@ exports.package = function(req, res, next) {
 
 exports.all = function(req, res) {
   res.render('packages', {
+    siteName: CONFIG.website.title,
     title: 'All Packages - ' + CONFIG.website.title,
     spmjsioVersion: spmjsioVersion,
     user: req.session.user,
@@ -216,6 +220,7 @@ exports.search = function(req, res, next) {
   }, function(err, results) {
     results = results || { hits: [] };
     res.render('search', {
+      siteName: CONFIG.website.title,
       title: 'Search Result - ' + CONFIG.website.title,
       spmjsioVersion: spmjsioVersion,
       user: req.session.user,
@@ -310,6 +315,7 @@ exports.documentation = function(req, res, next) {
   });
 
   res.render('documentation', {
+    siteName: CONFIG.website.title,
     title: capitalize.words(title.replace(/-/g, ' ')) + '- spm documentation',
     spmjsioVersion: spmjsioVersion,
     user: req.session.user,
