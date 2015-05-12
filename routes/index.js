@@ -86,7 +86,7 @@ exports.index = function(req, res) {
     data.submitors = data.submitors.slice(0, 10);
   }
     res.render('index', data);
-  });
+ // });
 };
 
 exports.project = function(req, res, next) {

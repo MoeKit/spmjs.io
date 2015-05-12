@@ -382,11 +382,7 @@ function abortify(res, options) {
     444: 'Cannot modify pre-existing version.'
   };
   message = options.message || msgs[code];
-<<<<<<< HEAD
   res.status(code).send({
-=======
-  res.send(code, {
->>>>>>> 509c4cdf797c74a0f2d0a8d1ca2d922d0efaf9db
     siteName: CONFIG.website.title,
     statusCode: code,
     status: status,
